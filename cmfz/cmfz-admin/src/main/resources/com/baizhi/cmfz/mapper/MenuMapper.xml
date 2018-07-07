@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "../mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.baizhi.cmfz.dao.MenuDao">
+    
+    <resultMap type="Menu" id="MenuMap">
+        <id property="id" column="id"/>
+     	<result property="menu_name" column="menu_name"/>
+     	<result property="menu_code" column="menu_code"/>
+     	<result property="menu_icon" column="menu_icon"/>
+        <result property="menu_url" column="menu_url"/>
+        <result property="menu_level" column="menu_level"/>
+        <result property="menu_parent_id" column="menu_parent_id"/>
+     	<collection property="lists" ofType="Menu">
+            <id property="id" column="sonid"/>
+            <result property="menu_name" column="sonname"/>
+            <result property="menu_code" column="soncode"/>
+            <result property="menu_icon" column="sonicon"/>
+            <result property="menu_url" column="sonurl"/>
+            <result property="menu_level" column="sonlevel"/>
+            <result property="menu_parent_id" column="sonparent_id"/>
+     	</collection>
+
+    </resultMap>
+   
+
+     <select id="selectAllParent" resultType="Menu">
+         select * from t_menu
+         where menu_level='1'
+     </select>
+     
+     <select id="selectSons" resultMap="MenuMap">
+         select t1.id,t1.menu_name,t1.menu_code,t1.menu_icon,t1.menu_url,t1.menu_level,t1.menu_parent_id,t2.id AS "sonid",t2.menu_name AS "sonname",t2.menu_code AS "soncode",t2.menu_icon AS "sonicon",
+         t2.menu_url AS "sonurl",t2.menu_level AS "sonlevel",t2.menu_parent_id AS "sonparent_id"
+         from t_menu t1 join t_menu t2
+         on t1.id=t2.menu_parent_id
+     </select>
+
+
+</mapper>
+
+
+
+
+
+
