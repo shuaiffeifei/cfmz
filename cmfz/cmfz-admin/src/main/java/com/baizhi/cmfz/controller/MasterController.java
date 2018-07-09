@@ -122,4 +122,11 @@ public class MasterController {
         }
         return 6666;
     }
+
+    //文章下拉列表中的所有上师
+    @RequestMapping("/allMasters")
+    @ResponseBody
+    public List<Master> selectAllMas(){
+        return ms.queryAllMasters();
+    }
 }

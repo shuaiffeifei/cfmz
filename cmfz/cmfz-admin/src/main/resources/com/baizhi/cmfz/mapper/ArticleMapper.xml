@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "../mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.baizhi.cmfz.dao.ArticleDao">
+
+     <select id="selectAllArticleByPage" resultType="Article">
+         SELECT a.*,m.master_name
+         from t_article a join t_master m
+         on a.guru_id=m.master_id
+         limit #{begin},#{end}
+     </select>
+
+    <select id="selectOne" resultType="Article">
+        select * from t_article where article_id
+    </select>
+
+     <select id="count" resultType="int">
+          select count(*) from t_article
+     </select>
+
+     <insert id="addArticle">
+         insert into t_article(article_id,article_name,guru_id,introduction,main_pic,status)
+         values(#{article_id},#{article_name},#{guru_id},#{introduction},#{main_pic},#{status})
+     </insert>
+
+     <delete id="delete">
+        delete from t_article where article_id=#{article_id}</delete>
+
+</mapper>
+
+
+
+
+
+

@@ -27,6 +27,7 @@ public class AdminController {
     @Autowired
     private AdminService as;
 
+    //管理员登录
     @RequestMapping("/login")
     public String login(HttpSession session, ModelMap map,HttpServletResponse req,String name, String password,String enCode,String cbx)throws IOException{
 
@@ -41,19 +42,27 @@ public class AdminController {
             cookie1.setPath("/");
 
             req.addCookie(cookie1);
+        }else{
+
+            Cookie cookie2=new Cookie("username", URLEncoder.encode(name,"utf-8"));
+
+            cookie2.setPath("/");
+
+            req.addCookie(cookie2);
+
+            if(d!=null&&code.equals(enCode)){
+
+                map.addAttribute("admin",d);
+
+                return "forward:/main/Main.jsp";
+            }
+
         }
 
-
-        if(d!=null&&code.equals(enCode)){
-
-            map.addAttribute("admin",d);
-
-           return "forward:/main/Main.jsp";
-        }
         return "redirect:/login.jsp";
     }
 
-
+    //管理员注册
     @RequestMapping("/regist")
     @ResponseBody
     public String regist(Admin admin){
@@ -62,6 +71,17 @@ public class AdminController {
         return "login";
     }
 
+    //管理员退出
+    @RequestMapping("/exit")
+    public String exit(HttpSession session){
+
+
+        session.setAttribute("admin",null);
+
+        return "redirect:/login.jsp";
+    }
+
+    //管理员修改密码
     @RequestMapping("/change")
     @ResponseBody
     public Integer regist(HttpSession session,String pwd){
@@ -75,6 +95,8 @@ public class AdminController {
         return null;
     }
 
+
+    //获取验证码
     @RequestMapping("/getVcode")
     @ResponseBody
     public void create(HttpSession session, HttpServletResponse response) throws IOException{
@@ -88,7 +110,6 @@ public class AdminController {
         vCode.write(response.getOutputStream());
 
     }
-
 
 
 }

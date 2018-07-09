@@ -3,6 +3,10 @@
 
 <mapper namespace="com.baizhi.cmfz.dao.MasterDao">
 
+    <select id="selectAllMaster" resultType="Master">
+        select * from t_master
+    </select>
+
     <select id="selectAllMasterByPage" resultType="Master">
         select * from t_master
         limit #{begin},#{end}

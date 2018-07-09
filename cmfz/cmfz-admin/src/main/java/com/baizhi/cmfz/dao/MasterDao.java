@@ -11,6 +11,9 @@ import java.util.List;
  */
 public interface MasterDao {
 
+    //查询所有大师
+    public List<Master> selectAllMaster();
+
     //分页查询所有大师
     public List<Master> selectAllMasterByPage(@Param("begin") Integer begin,@Param("end") Integer end);
 

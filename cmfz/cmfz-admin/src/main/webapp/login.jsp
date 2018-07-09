@@ -20,7 +20,7 @@
 			//点击更换验证码：
 			$("#captchaImage").click(function(){//点击更换验证码
 				var code=document.getElementById("captchaImage");
-				code.src="http://localhost:8899/cmfz-admin/admin/getVcode"
+				code.src="http://localhost:8899/cmfz-admin/admin/getVcode?"+new Date().getTime();
 			});
 
 

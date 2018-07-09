@@ -25,6 +25,11 @@ public class MasterServiceImpl implements MasterService {
     private MasterDao md;
 
     @Override
+    public List<Master> queryAllMasters() {
+        return md.selectAllMaster();
+    }
+
+    @Override
     public Map<String, Object> queryAllMasterByPage(Integer nowPage, Integer pageSize) {
 
         List<Master> masters = md.selectAllMasterByPage((nowPage - 1) * pageSize,  pageSize);

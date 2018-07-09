@@ -5,10 +5,10 @@
     $(function () {
         $('#Mastab').datagrid({
             title:'上师管理',
-            /*remoteSort:false,*/
+            remoteSort:false,
             singleSelect:true,
             rownumbers:false,
-            /*nowrap:false,*/
+            nowrap:false,
             fitColumns:true,
             toolbar:"#tb1",
             pagination : true,
@@ -26,8 +26,9 @@
             ]],
             view: detailview,
             detailFormatter: function(rowIndex, rowData){
-                return "<table><tr><td rowspan=2 style='border:0'><img style='height:300px; width:400px;' src='http://localhost:8899/cmfz-admin/upload/"+ rowData.master_photo +"' /></tr></td>";
+                return "<table><tr><td rowspan=2 style='border:0'><img style='height:300px; width:400px;' src='http://localhost:8899/cmfz-admin/upload/"+ rowData.master_photo +"' /></tr></td></table>";
             }
+
         });
 
 

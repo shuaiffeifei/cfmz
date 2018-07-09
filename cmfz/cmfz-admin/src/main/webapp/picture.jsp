@@ -26,9 +26,9 @@
             ]],
             view: detailview,
             detailFormatter: function(rowIndex, rowData){
-                return "<table><tr><td rowspan=2 style='border:0'><img style='height:300px; width:400px;' src='http://localhost:8899/cmfz-admin/upload/"+ rowData.picture_path +"' /></tr></td>" +
-                    "<tr><td>图片描述:</td><td>"+ rowData.picture_description +"</td></tr>" +
-                    "<tr><td>上线状态:</td><td>"+ rowData.picture_status+"</td></tr></table>";
+                return "<table><tr><td rowspan=2 style='border:0'><img style='height:300px; width:400px;' src='${pageContext.request.contextPath}/upload/"+ rowData.picture_path +"' /></td></tr>" +
+                    "<td>图片描述:"+ rowData.picture_description +"</td>" +
+                    "<td>上线状态:"+ rowData.picture_status+"</td></table>";
             }
         });
         $('#dg').datagrid({
