@@ -37,7 +37,7 @@ public class ArticleServiceImpl implements ArticleService{
 
 
     @Override
-    public Integer addOneArticle(Article article) {
+    public Integer addArticle(Article article) {
         return ad.addArticle(article);
     }
 

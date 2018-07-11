@@ -16,7 +16,7 @@ public interface ArticleService {
     public Article selectOne(String id);
 
     //添加文章
-    public Integer addOneArticle(Article article);
+    public Integer addArticle(Article article);
 
     //删除文章
     public Integer dropArticle(String id);

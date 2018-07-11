@@ -9,7 +9,7 @@
             singleSelect:true,
             nowrap:false,
             fitColumns:true,
-            toolbar:"#tb",
+            toolbar:"#tb2",
             pagination : true,
             pageList : [ 1, 3, 5, 7, 10 ],
             pageSize:5,
@@ -157,7 +157,7 @@
 <table id="picmgr"></table>
 
 
-    <div id="tb" style="display: none">
+    <div id="tb2" style="display: none">
 
         <a id="adda" href="#" class="easyui-linkbutton"
            data-options="iconCls:'icon-add',plain:true,text:'新增轮播图'"></a>

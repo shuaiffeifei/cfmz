@@ -58,7 +58,7 @@ public class ArticleController {
             article.setIntroduction(introduction);
             article.setStatus("on");
         }
-        return as.addOneArticle(article);
+        return as.addArticle(article);
     }
 
 

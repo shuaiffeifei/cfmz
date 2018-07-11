@@ -8,6 +8,10 @@
          limit #{begin},#{end}
      </select>
 
+     <select id="count" resultType="int">
+         select count(*) from t_logbook
+     </select>
+
     <insert id="insertlog">
         insert into t_logbook(id,user,resource,action,message,result)
         values(#{id},#{user},#{resource},#{action},#{message},#{result})

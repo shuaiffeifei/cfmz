@@ -1,8 +1,11 @@
+import com.baizhi.cmfz.dao.LogDao;
 import com.baizhi.cmfz.dao.MasterDao;
 import com.baizhi.cmfz.entity.Admin;
+import com.baizhi.cmfz.entity.Log;
 import com.baizhi.cmfz.entity.Master;
 import com.baizhi.cmfz.entity.Picture;
 import com.baizhi.cmfz.service.AdminService;
+import com.baizhi.cmfz.service.LogbookService;
 import com.baizhi.cmfz.service.MasterService;
 import com.baizhi.cmfz.service.PictureService;
 import com.baizhi.cmfz.service.imp.MasterServiceImpl;
@@ -20,9 +23,9 @@ import java.util.Map;
 public class test {
     public static void main(String[] args) {
         ApplicationContext ctx=new ClassPathXmlApplicationContext("applicationContext.xml");
-        MasterService masterServiceImpl = (MasterService) ctx.getBean("masterServiceImpl");
-        Map<String, Object> map = masterServiceImpl.queryAllMasterByLike(1, 2, "师");
-        for (Map.Entry<String, Object> stringObjectEntry : map.entrySet()) {
+       LogbookService logbookServiceImpl = (LogbookService) ctx.getBean("logbookServiceImpl");
+        Map<String, Object> allLogsByPage = logbookServiceImpl.findAllLogsByPage(1, 2);
+        for (Map.Entry<String, Object> stringObjectEntry : allLogsByPage.entrySet()) {
             System.out.println(stringObjectEntry);
         }
     }

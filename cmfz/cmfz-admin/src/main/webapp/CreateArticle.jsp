@@ -11,14 +11,14 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/wangEditor.js"></script>
 <script type="text/javascript">
     var E = window.wangEditor
-    var editor = new E('#editor')
-    // 或者 var editor = new E( document.getElementById('editor') )
-    editor.customConfig.uploadImgServer ='${pageContext.request.contextPath}/rt/upload';  // 上传图片到服务器
-    editor.customConfig.uploadFileName = 'Myfiles'; //上传图片的名称
-    var $text1 = $('#text1')
-    editor.customConfig.onchange = function (html) {
-        // 监控变化，同步更新到 textarea
-        $text1.val(html)
+        var editor = new E('#editor')
+        // 或者 var editor = new E( document.getElementById('editor') )
+        editor.customConfig.uploadImgServer ='${pageContext.request.contextPath}/rt/upload';  // 上传图片到服务器
+        editor.customConfig.uploadFileName = 'Myfiles'; //上传图片的名称
+        var $text1 = $('#text1')
+        editor.customConfig.onchange = function (html) {
+            // 监控变化，同步更新到 textarea
+            $text1.val(html)
     }
 
 
@@ -59,6 +59,8 @@
             }
         });
 
+
+       //清空输入内容
         $("#resetbtn").linkbutton({
             onClick:function () {
                 $("#editor").text("");

@@ -11,12 +11,12 @@
 <script type="text/javascript">
     $(function () {
         $('#atcmgr').datagrid({
-            title:'轮播图管理页',
+            title:'文章管理页',
             remoteSort:false,
             singleSelect:true,
             nowrap:false,
             fitColumns:true,
-            toolbar:"#tb",
+            toolbar:"#tb3",
             pagination : true,
             pageList : [ 1, 3, 5, 7, 10 ],
             pageSize:5,
@@ -103,7 +103,7 @@
 <table id="atcmgr"></table>
 
 
-<div id="tb" style="display: none">
+<div id="tb3" style="display: none">
 
     <a id="detail" href="#" class="easyui-linkbutton"
        data-options="iconCls:'icon-reload',plain:true,text:'文章详情'"></a>

@@ -18,4 +18,8 @@ public interface LogDao {
 
     //删除日志
     public Integer deletelog(String id);
+
+    //查询总日志数
+    public Integer count();
+
 }
