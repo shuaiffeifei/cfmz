@@ -9,6 +9,9 @@
         http://www.springframework.org/schema/context/spring-context.xsd
         http://www.springframework.org/schema/tx
         http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+
+
     <!--注解扫描-->
     <contex:component-scan base-package="com.baizhi.cmfz">
         <contex:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
@@ -47,4 +50,5 @@
     <!---日志管理-->
     <aop:aspectj-autoproxy proxy-target-class="true" />
     <bean id="logAspect" class="com.baizhi.cmfz.utils.LogAspect"/>
+    <import resource="applicationContext-shiro.xml" />
 </beans>

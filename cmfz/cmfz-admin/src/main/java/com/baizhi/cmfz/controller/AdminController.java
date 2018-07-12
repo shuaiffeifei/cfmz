@@ -3,6 +3,12 @@ package com.baizhi.cmfz.controller;
 import com.baizhi.cmfz.entity.Admin;
 import com.baizhi.cmfz.service.AdminService;
 import com.baizhi.cmfz.utils.CreateValidateCode;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.UnknownAccountException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -61,6 +67,38 @@ public class AdminController {
 
         return "redirect:/login.jsp";
     }
+
+    @RequestMapping("/login2")     //mad方式加密登录
+    public String login(String name,String password,boolean rememberMe,String enCode,HttpSession session){
+
+        String code= (String) session.getAttribute("code");
+
+        if(enCode!=null&&code.equals(enCode)){
+            // 在web环境中安全管理器会自动进行初始化
+            Subject subject = SecurityUtils.getSubject();
+            try {
+                subject.login(new UsernamePasswordToken(name,password,rememberMe));
+
+                // 编程式授权
+                System.out.println(subject.hasRole("root") ? "有root角色":"无root角色");
+                return "redirect:/main/Main.jsp";
+            } catch (UnknownAccountException e) {
+                e.printStackTrace();
+                return "redirect:/login.jsp";
+            } catch (IncorrectCredentialsException ice){
+                ice.printStackTrace();
+                return "redirect:/login.jsp";
+            } catch (AuthenticationException ae){
+                ae.printStackTrace();
+                return "redirect:/login.jsp";
+            }
+
+        }else{
+            return "redirect:/login.jsp";
+        }
+
+    }
+
 
     //管理员注册
     @RequestMapping("/regist")

@@ -25,8 +25,28 @@
       <param-value>utf-8</param-value>
     </init-param>
   </filter>
+
+  <filter>
+    <filter-name>shiroFilter</filter-name>
+    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    <init-param>
+      <!--
+           DelegatingFilterProxy代理类，只负责请求的拦截 不负责请求的处理
+      -->
+      <param-name>targetBeanName</param-name>
+      <param-value>shiroFilter</param-value>
+    </init-param>
+  </filter>
+
   <filter-mapping>
     <filter-name>encodingFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+  <!--shiro的过滤器-->
+
+  <filter-mapping>
+    <filter-name>shiroFilter</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
 

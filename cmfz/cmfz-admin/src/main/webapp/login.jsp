@@ -31,7 +31,7 @@
 <body>
 	
 		<div class="login">
-			<form id="loginForm" action="http://localhost:8899/cmfz-admin/admin/login" method="post">
+			<form id="loginForm" action="http://localhost:8899/cmfz-admin/admin/login2" method="post">
 				
 				<table>
 					<tbody>
@@ -70,9 +70,18 @@
 						<th>
 							&nbsp;
 						</th>
-						<td>
+						<%--<td>
 							<label>
 								<input type="checkbox" id="isRememberUsername"  name="cbx" value="true"/> 记住用户名
+							</label>
+						</td>--%>
+						<td>
+							<label>
+						<td>
+							<label>
+								<input type="checkbox" name="rememberMe"/>七天免登陆
+							</label>
+						</td>
 							</label>
 						</td>
 					</tr>

@@ -10,6 +10,7 @@ import com.baizhi.cmfz.service.MasterService;
 import com.baizhi.cmfz.service.PictureService;
 import com.baizhi.cmfz.service.imp.MasterServiceImpl;
 import com.baizhi.cmfz.utils.UUIDUtils;
+import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import sun.awt.image.PixelConverter;
@@ -22,11 +23,14 @@ import java.util.Map;
  */
 public class test {
     public static void main(String[] args) {
-        ApplicationContext ctx=new ClassPathXmlApplicationContext("applicationContext.xml");
+       /* ApplicationContext ctx=new ClassPathXmlApplicationContext("applicationContext.xml");
        LogbookService logbookServiceImpl = (LogbookService) ctx.getBean("logbookServiceImpl");
         Map<String, Object> allLogsByPage = logbookServiceImpl.findAllLogsByPage(1, 2);
         for (Map.Entry<String, Object> stringObjectEntry : allLogsByPage.entrySet()) {
             System.out.println(stringObjectEntry);
-        }
+        }*/
+
+        Md5Hash md5Hash = new Md5Hash("123456", "E2CB6C", 1024);
+        System.out.println(md5Hash);
     }
 }

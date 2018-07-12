@@ -20,4 +20,5 @@ public interface AdminDao {
 
     //修改管理员
     public Integer updateAdmin(Admin admin);
+
 }
