@@ -2,6 +2,8 @@ package com.baizhi.cmfz.utils;
 
 import com.baizhi.cmfz.dao.AdminDao;
 import com.baizhi.cmfz.entity.Admin;
+import com.baizhi.cmfz.entity.SysPermission;
+import com.baizhi.cmfz.entity.SysRole;
 import com.baizhi.cmfz.service.AdminService;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -12,13 +14,18 @@ import org.apache.shiro.util.ByteSource;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+
 /**
  * Created by Administrator on 2018-07-11.
  */
 public class MyRealm extends AuthorizingRealm {
 
+  /*  @Autowired
+    private AdminDao adminDao;*/
+
     @Autowired
-    private AdminDao adminDao;
+    private AdminService adminService;
 
     /**
      * 获取授权信息方法  角色信息+权限信息
@@ -36,23 +43,18 @@ public class MyRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         String username= (String) principalCollection.getPrimaryPrincipal();
-        Admin admin = adminDao.selectAdmin(username);
-        if(admin!=null) {
-            String mgr_name = admin.getMgr_name();
-            if (mgr_name.equals(username)) {
-                SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-                info.addRole("root");
-                info.addRole("admmin");
-                info.addRole("user");
-
-                info.addStringPermission("user:add");
-                return info;
-            }
-
+        List<SysRole> sysRoles = adminService.queryRolesByUsername(username);
+        //封装查询到的授权信息对象
+         SimpleAuthorizationInfo info=new SimpleAuthorizationInfo();
+        for (SysRole sysRole : sysRoles) {
+            info.addRole(sysRole.getRoleName());
         }
-
-        return null;
-    }
+        List<SysPermission> permissions=adminService.queryPermissionByUsername(username);
+        for (SysPermission permission : permissions) {
+            info.addStringPermission(permission.getPermissionTag());
+        }
+        return info;
+}
     /**
      * 获取认证信息方法
      * @param authenticationToken
@@ -61,9 +63,10 @@ public class MyRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
+        System.out.println("进入验证！！！！！");
         UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) authenticationToken;
         String username = usernamePasswordToken.getUsername();
-        Admin admin = adminDao.selectAdmin(username);
+        Admin admin = adminService.adminLoginByShiro(username);
         if (admin != null) {
             if (admin.getMgr_name().equals(username)) {
                 return new SimpleAuthenticationInfo(username, admin.getMgr_pwd(), ByteSource.Util.bytes(admin.getSalt())

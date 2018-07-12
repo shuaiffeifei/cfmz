@@ -71,31 +71,44 @@ public class AdminController {
     @RequestMapping("/login2")     //mad方式加密登录
     public String login(String name,String password,boolean rememberMe,String enCode,HttpSession session){
 
+        Admin admin=null;
+
         String code= (String) session.getAttribute("code");
 
-        if(enCode!=null&&code.equals(enCode)){
-            // 在web环境中安全管理器会自动进行初始化
-            Subject subject = SecurityUtils.getSubject();
-            try {
-                subject.login(new UsernamePasswordToken(name,password,rememberMe));
+        Admin admin1 = as.adminLoginByShiro(name);
 
-                // 编程式授权
-                System.out.println(subject.hasRole("root") ? "有root角色":"无root角色");
-                return "redirect:/main/Main.jsp";
-            } catch (UnknownAccountException e) {
-                e.printStackTrace();
-                return "redirect:/login.jsp";
-            } catch (IncorrectCredentialsException ice){
-                ice.printStackTrace();
-                return "redirect:/login.jsp";
-            } catch (AuthenticationException ae){
-                ae.printStackTrace();
+        session.setAttribute("","");
+
+        if(admin1!=null){
+
+            session.setAttribute("admin",admin1);
+
+            if(enCode!=null&&code.equals(enCode)){
+                // 在web环境中安全管理器会自动进行初始化
+                Subject subject = SecurityUtils.getSubject();
+                try {
+                    subject.login(new UsernamePasswordToken(name,password,rememberMe));
+
+                    // 编程式授权
+                    System.out.println(subject.hasRole("root") ? "有root角色":"无root角色");
+                    return "redirect:/main/Main.jsp";
+                } catch (UnknownAccountException e) {
+                    e.printStackTrace();
+                    return "redirect:/login.jsp";
+                } catch (IncorrectCredentialsException ice){
+                    ice.printStackTrace();
+                    return "redirect:/login.jsp";
+                } catch (AuthenticationException ae){
+                    ae.printStackTrace();
+                    return "redirect:/login.jsp";
+                }
+
+            }else{
                 return "redirect:/login.jsp";
             }
 
-        }else{
-            return "redirect:/login.jsp";
         }
+        return "redirect:/login.jsp";
 
     }
 

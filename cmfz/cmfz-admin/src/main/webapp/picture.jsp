@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
+<%@taglib  uri="http://shiro.apache.org/tags" prefix="shiro"%>
     <title>datagride_view</title>
     <script type="text/javascript" src="../js/datagrid-detailview.js"></script>
     <script type="text/javascript">
     $(function () {
+        <shiro:hasPermission name="user:query">
         $('#picmgr').datagrid({
             title:'轮播图管理页',
             remoteSort:false,
@@ -31,6 +33,7 @@
                     "<td>上线状态:"+ rowData.picture_status+"</td></table>";
             }
         });
+        </shiro:hasPermission>
         $('#dg').datagrid({
             toolbar: '#tb'
         });
@@ -158,11 +161,14 @@
 
 
     <div id="tb2" style="display: none">
-
+        <shiro:hasPermission name="user:add">
         <a id="adda" href="#" class="easyui-linkbutton"
            data-options="iconCls:'icon-add',plain:true,text:'新增轮播图'"></a>
+        </shiro:hasPermission>
+        <shiro:hasPermission name="user:modify">
         <a id="change" href="#" class="easyui-linkbutton"
            data-options="iconCls:'icon-reload',plain:true,text:'修改轮播图'"></a>
+        </shiro:hasPermission>
         <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-help',plain:true"/>
         <div id="dialog"></div>
         <div id="newdialog"></div>

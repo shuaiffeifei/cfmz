@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
+<%@taglib  uri="http://shiro.apache.org/tags" prefix="shiro"%>
     <title>datagride_view</title>
     <script type="text/javascript" src="../js/datagrid-detailview.js"></script>
     <script type="text/javascript">
     $(function () {
+        <shiro:hasPermission name="user:query">
         $('#Mastab').datagrid({
             title:'上师管理',
             remoteSort:false,
@@ -30,7 +32,7 @@
             }
 
         });
-
+        </shiro:hasPermission>
 
         //添加上师
         $('#addMas').linkbutton({
@@ -82,7 +84,6 @@
                 })
             }
         });
-
 
         //修改上师
         $("#changeMas").linkbutton({
@@ -244,22 +245,29 @@
 
 
     <div id="tb1" style="display: none">
-
+        <shiro:hasPermission name="user:add">
         <a id="addMas" href="#" class="easyui-linkbutton"
            data-options="iconCls:'icon-add',plain:true,text:'新增上师'"></a>
+        </shiro:hasPermission>
+        <shiro:hasPermission name="user:modify">
         <a id="changeMas" href="#" class="easyui-linkbutton"
            data-options="iconCls:'icon-reload',plain:true,text:'修改上师'"></a>
+        </shiro:hasPermission>
+        <shiro:hasPermission name="user:remove">
         <a id="cancelMas" class="easyui-linkbutton"
            data-options="iconCls:'icon-cancel',plain:true,text:'删除上师'"></a>
-
+        </shiro:hasPermission>
+        <shiro:hasPermission name="user:add">
         <a id="insertforMore" class="easyui-linkbutton"
            data-options="iconCls:'icon-client',plain:true,text:'批量插入'"></a>
-
+        </shiro:hasPermission>
+        <shiro:hasPermission name="user:query">
         <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-help',plain:true"/>
         <input class="easyui-searchbox" style="width:300px" data-options="searcher:qq,prompt:'请您输入需要模糊查询的内容',menu:'#mm'" />
         <div id="mm">
             <div data-options="name:'name',iconCls:'icon-client'">姓名</div>
         </div>
+        </shiro:hasPermission>
         <div id="dialog1"></div>
         <div id="newdialog1"></div>
         <div id="dialog2"></div>

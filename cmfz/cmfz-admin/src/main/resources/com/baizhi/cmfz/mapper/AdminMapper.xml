@@ -13,4 +13,64 @@
         update t_admin set mgr_pwd=#{mgr_pwd},salt=#{salt} where mgr_id=#{mgr_id}
     </update>
 
+    <select id="findRolesBuUsername" resultType="SysRole">
+        SELECT
+           id id,
+           role_name roleName,
+           role_tag  roleTag
+        FROM
+          sys_role
+        WHERE
+           id IN (
+           SELECT
+             role_id
+           FROM
+             sys_user_role
+           WHERE
+             user_id = (
+           SELECT
+             mgr_id
+           FROM
+             t_admin
+           WHERE
+             mgr_name = #{0}
+           )
+        )
+
+    </select>
+
+    <select id="findPermissionsByUsername" resultType="SysPermission">
+        SELECT
+           id id,
+           resource_name resourceName,
+           resource_tag  resourceTag,
+           resource_url  resourceUrl,
+           permission_tag permissionTag
+        FROM
+        sys_permission
+           WHERE
+           id IN (
+           SELECT
+           permission_id
+           FROM
+              sys_role_permission
+           WHERE
+           role_id IN (
+           SELECT
+           role_id
+           FROM
+            sys_user_role
+           WHERE
+            user_id = (
+          SELECT
+            mgr_id
+          FROM
+            t_admin
+          WHERE
+            mgr_name =#{0}
+          )
+         )
+        )
+    </select>
+
 </mapper>

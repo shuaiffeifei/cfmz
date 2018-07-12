@@ -1,9 +1,6 @@
 import com.baizhi.cmfz.dao.LogDao;
 import com.baizhi.cmfz.dao.MasterDao;
-import com.baizhi.cmfz.entity.Admin;
-import com.baizhi.cmfz.entity.Log;
-import com.baizhi.cmfz.entity.Master;
-import com.baizhi.cmfz.entity.Picture;
+import com.baizhi.cmfz.entity.*;
 import com.baizhi.cmfz.service.AdminService;
 import com.baizhi.cmfz.service.LogbookService;
 import com.baizhi.cmfz.service.MasterService;
@@ -23,14 +20,15 @@ import java.util.Map;
  */
 public class test {
     public static void main(String[] args) {
-       /* ApplicationContext ctx=new ClassPathXmlApplicationContext("applicationContext.xml");
-       LogbookService logbookServiceImpl = (LogbookService) ctx.getBean("logbookServiceImpl");
-        Map<String, Object> allLogsByPage = logbookServiceImpl.findAllLogsByPage(1, 2);
-        for (Map.Entry<String, Object> stringObjectEntry : allLogsByPage.entrySet()) {
-            System.out.println(stringObjectEntry);
-        }*/
+       ApplicationContext ctx=new ClassPathXmlApplicationContext("applicationContext.xml");
+        AdminService adminServiceImpl = (AdminService) ctx.getBean("adminServiceImpl");
 
-        Md5Hash md5Hash = new Md5Hash("123456", "E2CB6C", 1024);
-        System.out.println(md5Hash);
+        adminServiceImpl.adminLoginByShiro("cpf");
+
+        List<SysRole> cpf = adminServiceImpl.queryRolesByUsername("cpf");
+
+        for (SysRole sysRole : cpf) {
+            System.out.println(sysRole);
+        }
     }
 }

@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
+<%@taglib  uri="http://shiro.apache.org/tags" prefix="shiro"%>
     <title>日志管理</title>
     <script type="text/javascript" src="../js/datagrid-detailview.js"></script>
     <script type="text/javascript">
     $(function () {
+        <shiro:hasPermission name="user:query">
         $('#logmgr').datagrid({
             title:'日志管理页',
             remoteSort:false,
@@ -24,6 +26,7 @@
                 {field:'result',title:'处理结果',width:60,align:'center'},
             ]],
         });
+        </shiro:hasPermission>
         $('#dg').datagrid({
             toolbar: '#tb'
         });
@@ -70,7 +73,9 @@
 
 <table id="logmgr"></table>
 <div id="tr" style="display: none">
+    <shiro:hasPermission name="user:remove">
     <a id="droplog" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-cancel',plain:true,text:'删除日志'"></a>
+    </shiro:hasPermission>
     <div id="dropdialog"></div>
 </div>
 

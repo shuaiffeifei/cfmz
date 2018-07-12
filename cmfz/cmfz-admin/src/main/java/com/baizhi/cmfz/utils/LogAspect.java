@@ -45,7 +45,7 @@ public class LogAspect {
     /**
      * 管理员登录方法的切入点
      */
-    @Pointcut("execution(* com.baizhi.cmfz.service.imp.AdminServiceImpl.adminLogin(..))")
+    @Pointcut("execution(* com.baizhi.cmfz.service.imp.AdminServiceImpl.adminLoginByShiro(..))")
     public void loginCell(){}
 
     /**

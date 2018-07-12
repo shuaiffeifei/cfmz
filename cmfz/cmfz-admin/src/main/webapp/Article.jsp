@@ -6,10 +6,12 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
+<%@taglib  uri="http://shiro.apache.org/tags" prefix="shiro"%>
 <title>datagride_view</title>
 <script type="text/javascript" src="../js/datagrid-detailview.js"></script>
 <script type="text/javascript">
     $(function () {
+      <shiro:hasPermission name="user:query">
         $('#atcmgr').datagrid({
             title:'文章管理页',
             remoteSort:false,
@@ -39,6 +41,7 @@
                     "<td>上线状态:"+ rowData.picture_status+"</td></table>";
             }*/
         });
+        </shiro:hasPermission>
         $('#dg').datagrid({
             toolbar: '#tb'
         });
@@ -107,10 +110,14 @@
 
     <a id="detail" href="#" class="easyui-linkbutton"
        data-options="iconCls:'icon-reload',plain:true,text:'文章详情'"></a>
+    <shiro:hasPermission name="user:modify">
     <a id="change" href="#" class="easyui-linkbutton"
        data-options="iconCls:'icon-update',plain:true,text:'文章编写'"></a>
+    </shiro:hasPermission>
+    <shiro:hasPermission name="user:remove">
     <a id="drop" href="#" class="easyui-linkbutton"
        data-options="iconCls:'icon-update',plain:true,text:'文章删除'"></a>
+    </shiro:hasPermission>
     <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-help',plain:true"/>
     <div id="win"></div>
     <div id="dialog"></div>
